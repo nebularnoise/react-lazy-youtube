@@ -94,8 +94,26 @@ class Player extends Component {
       "maxresdefault"
     ]
 
-    const image = () =>
-      validImageSizes.includes(imageSize) ? imageSize : "default"
+    const get_image = async () => {
+      const url = ({ img }) => `https://img.youtube.com/vi/${id}/${img}.jpg`
+
+      let img_url = url(
+        validImageSizes.includes(imageSize) ? imageSize : "default"
+      )
+
+      axios.get(img_url).catch(e => {
+        const default_url = url("default")
+        axios
+          .get(default_url)
+          .then(r => {
+            img_url = default_url
+          })
+          .catch(e => {
+            img_url = url("0")
+          })
+      })
+      return img_url
+    }
 
     return (
       <VideoWrapper {...props} style={styles}>
@@ -125,7 +143,7 @@ class Player extends Component {
               <Play onClick={this.showVideo} aria-label="Play Video" />
               <Thumbnail
                 onClick={this.showVideo}
-                src={`https://img.youtube.com/vi/${id}/${image()}.jpg`}
+                src={get_image()}
                 alt="Video"
               />
             </Image>

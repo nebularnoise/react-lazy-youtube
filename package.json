@@ -4,6 +4,7 @@
   "author": "Sara Vieira",
   "main": "dist/index.js",
   "dependencies": {
+    "axios": "^0.19.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-youtube": "^7.6.0",
@@ -23,7 +24,8 @@
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "format": "prettier --write '**/*.{js,css,md}'",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "prepare": "npm run build"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
